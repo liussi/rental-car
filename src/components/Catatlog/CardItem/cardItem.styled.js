@@ -1,59 +1,88 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
-// Створіть стилізований компонент за допомогою styled.div, styled.button, тощо.
-export const CardWrapper = styled.article`
-position: relative;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  width: 274px; // Задайте фіксовану ширину для кожної картки
-  box-sizing: border-box; // Додайте це, щоб врахувати padding у ширині
-  border-radius: 10px; // Закругліть кути
-
-  @media screen and (max-width: 1096px) {
-    width: 100%; // Змініть ширину на 100% при розширенні екрану менше 1096px
+export const ImageContainer = styled.div`
+  position: relative;
+`;
+export const ButtonHeart = styled.button`
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  :hover,
+  :focus {
+    transform: scale(1.2);
+    fill: rgba(52, 112, 255, 1);
+    stroke: rgba(52, 122, 255, 1);
   }
 `;
 
-export const CardContent = styled.div`
+export const Title = styled.h3`
+  font-family: ManropeRegular;
+  font-size: 16px;
+  line-height: 24px;
   display: flex;
-  flex-direction: column; // Змініть на flex-direction: column для відображення елементів вертикально
-  align-items: center; // Це для вирівнювання елементів по центру
 `;
-export const Icon = styled.svg`
-  position: absolute;
-  z-index: 100;
-  right: 14px;
-  top: 14px;
-  width: 24px;
-  height: 24px;
-  transition-duration: 250ms;
-   stroke: black;
-  fill: black;
+
+export const Span = styled.span`
+  color: rgba(52, 112, 255, 1);
+  margin-left: 6px;
+`;
+
+export const SpanPrice = styled.span`
+  margin-left: auto;
+`;
+
+export const Item = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 274px;
+  height: 426px;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 268px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 20, 23, 0.5) 2.5%,
+    rgba(18, 20, 23, 0) 41.07%
+  );
+`;
+
+export const DescrContainer = styled.div`
+  display: flex;
+  width: 255px;
+  height: 40px;
+  overflow: hidden;
+`;
+
+export const Descr = styled.p`
+  width: 270px;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-family: ManropeRegular;
+  color: rgba(18, 20, 23, 0.5);
+`;
+
+export const Button = styled.button`
+  width: 274px;
+  height: 44px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: rgba(52, 112, 255, 1);
+  color: white;
   cursor: pointer;
-`;
-export const CardImage = styled.img`
-  width: 100%; // Задайте ширину 100% для респонсивності
-  max-height: 288px; // Задайте максимальну висоту, щоб фото не було вищим за 288px
-  border-radius: 10px; // Закругліть кути
-  object-fit: cover; // Зберігайте пропорції і обрізайте, щоб фото вміщувалося
-`;
-
-export const CardTitle = styled.h2`
-  color: #333;
-  margin-top: 10px; // Додайте відступ для відображення заголовка від верху фото
-`;
-
-export const CardInfo = styled.p`
-  color: #666;
-`;
-
-export const CardButton = styled.button`
-  background-color: #007bff;
-  color: #fff;
   border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-top: 10px; // Додайте відступ для відображення кнопки від нижньої частини фото
-`;
 
+  &:hover,
+  &:focus {
+    background-color: rgba(11, 68, 205, 1);
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+`;

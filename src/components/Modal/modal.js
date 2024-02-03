@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { ModalCloseButton, ModalContent, ModalOverlay } from './modal.styled';
+import ModalCard from 'components/ModalCard/modalCard';
 
 const Modal = ({ isOpen, onClose, children, catalogData }) => {
-  return (
-    <>
-      {isOpen && (
-        <ModalOverlay>
+  
+    useEffect(() => {
+    const handleEscKeyPress = event => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleEscKeyPress);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscKeyPress);
+    };
+  }, [isOpen, onClose]);
+
+  const handleOverlayClick = event => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+    if (!isOpen) return null;
+ 
+      return ReactDOM.createPortal(  
+        <ModalOverlay onClick={handleOverlayClick}>
           <ModalContent>
-            <ModalCloseButton onClick={onClose}>Close</ModalCloseButton>
-
-            <div>
-              <h2>
-                {catalogData.make}, {catalogData.year}
-              </h2>
-              <p>Rental Price: {catalogData.rentalPrice}</p>
-              <p>Address: {catalogData.address}</p>
-              <p>Rental Company: {catalogData.rentalCompany}</p>
-             <a href="tel:+380730000000">Rental car</a>
-
-            </div>
-
+            <ModalCloseButton onClick={onClose}>X</ModalCloseButton>
+            <ModalCard catalogData={ catalogData} />
             {children}
           </ModalContent>
-        </ModalOverlay>
-      )}
-    </>
-  );
+        </ModalOverlay>,
+          document.body
+  )
+      
+
 };
 
 Modal.propTypes = {
@@ -39,7 +53,6 @@ Modal.propTypes = {
     rentalPrice: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     rentalCompany: PropTypes.string.isRequired,
-    // Додайте решту ваших властивостей для детального відображення
   }).isRequired,
 };
 

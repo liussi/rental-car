@@ -1,17 +1,25 @@
-// cardItem.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  CardWrapper,
-  CardTitle,
-  CardContent,
-  CardInfo,
-  CardButton,
-  CardImage,
-  Icon,
+  DescrContainer,
+  Descr,
+  Button,
+  SpanPrice,
+  Title,
+  ButtonHeart,
+  Img,
+  ImageContainer,
+  Item,
+  Span,
+ 
 } from './cardItem.styled';
 
 import Modal from '../../Modal/modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSelectorFavorites } from '../../../redux/favorites/selector';
+import { addToFavorites, removeFavorites } from '../../../redux/favorites/favoritesSlise';
+import Icons from '../../../images/symbol-defs.svg';
+import rentalCar from '../../../images/rentalCar.png'
 
 function CardItem({ catalogData }) {
   const {
@@ -24,14 +32,13 @@ function CardItem({ catalogData }) {
     address,
     img,
     rentalPrice,
+    model,
+    mileage,
   } = catalogData;
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(
-    // Отримайте дані з локального сховища
-    JSON.parse(localStorage.getItem('favorites'))?.some(car => car.id === id) ||
-      false
-  );
+  const [isOpen, setModalOpen] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+    const dispatch = useDispatch();
 
   const openModal = () => {
     setModalOpen(true);
@@ -41,60 +48,67 @@ function CardItem({ catalogData }) {
     setModalOpen(false);
   };
 
-  const handleFavoriteClick = () => {
-    // Оновіть локальне сховище при додаванні або видаленні
-    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const isAlreadyInFavorites = storedFavorites.some(car => car.id === id);
 
-    if (isAlreadyInFavorites) {
-      const updatedFavorites = storedFavorites.filter(car => car.id !== id);
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-    } else {
-      const updatedFavorites = [...storedFavorites, { id, ...catalogData }];
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-    }
+   const storedFavorites = useSelector(getSelectorFavorites);
 
-    // Оновіть локальний стан
-    setIsFavorite(!isFavorite);
-  };
+   useEffect(() => {
+     setIsFavorite(storedFavorites.some(favorite => favorite.id === id));
+   }, [id, storedFavorites]);
+
+   const handleFavoriteToggle = () => {
+
+     if (storedFavorites.some(favorite => favorite.id === id)) {
+       dispatch(removeFavorites(id));
+       setIsFavorite(false);
+     } else {
+
+       dispatch(addToFavorites(catalogData));
+       setIsFavorite(true);
+     }
+   };
 
   return (
     <>
-      <CardWrapper>
-        <Icon>
-          <use
-            xlinkHref="../../../images/symbol-defs.svg#icon-heart"
-            fill="black"
-          ></use>
-        </Icon>
-
-        <CardImage src={img} alt="Car Photo" />
-
-        <CardContent>
-          <CardTitle>
-            {make}, {year}
-          </CardTitle>
-          <CardInfo>{rentalPrice}</CardInfo>
-        </CardContent>
-
-        <p>{address}</p>
-        <p>{rentalCompany}</p>
-        <p> {type}</p>
-        <p> {make}</p>
-        <p> {id}</p>
-
-        <p> {functionalities[0]}</p>
-
-        <CardButton onClick={openModal}>Learn more</CardButton>
-      </CardWrapper>
-      <button onClick={handleFavoriteClick}>
-        {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-      </button>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        catalogData={catalogData}
-      ></Modal>
+      <Item>
+        <ImageContainer>
+          {!img ? (
+            <Img src={rentalCar} width={274} />
+          ) : (
+            <Img src={img} alt={`${make}`} width={274} />
+          )}
+          {isFavorite ? (
+            <ButtonHeart type="button" onClick={handleFavoriteToggle}>
+              <svg width={18} height={18}>
+                <use href={Icons + '#icon-heart-blue'} />
+              </svg>
+            </ButtonHeart>
+          ) : (
+            <ButtonHeart type="button" onClick={handleFavoriteToggle}>
+              <svg width={18} height={18}>
+                <use href={Icons + '#icon-heart-hidden'} />
+              </svg>
+            </ButtonHeart>
+          )}
+        </ImageContainer>
+        <Title>
+          {make}
+          {make && <Span>{model}</Span>}, {year}{' '}
+          <SpanPrice>{rentalPrice}</SpanPrice>
+        </Title>
+        <DescrContainer>
+          <Descr>
+            {address} | {rentalCompany} | {type} | {make} | {mileage} |{' '}
+            {functionalities[0]}
+          </Descr>
+        </DescrContainer>
+        <Button onClick={() => openModal(id)}>Learn More</Button>
+        <Modal
+          isOpen={isOpen}
+          onClose={closeModal}
+          catalogData={catalogData}
+          id={id}
+        ></Modal>
+      </Item>
     </>
   );
 }
@@ -111,6 +125,8 @@ CardItem.propTypes = {
     functionalities: PropTypes.array.isRequired,
     rentalPrice: PropTypes.string.isRequired,
     rentalCompany: PropTypes.string.isRequired,
+    model: PropTypes.string.isRequired, 
+    mileage: PropTypes.number.isRequired,
   }).isRequired,
 };
 
