@@ -5,7 +5,7 @@ import Home from '../pages/Home/home';
 import Catalog from '../pages/Catalog/catalog';
 import Favorites from '../pages/Favorites/favorites';
 import Loader from './Loader/loader';
-import { Layout } from './Layout/layout';
+import { Layout } from './Header/header';
 
 
 

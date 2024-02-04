@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { ModalCloseButton, ModalContent, ModalOverlay } from './modal.styled';
-import ModalCard from 'components/ModalCard/modalCard';
 
-const Modal = ({ isOpen, onClose, children, catalogData }) => {
+const Modal = ({ isOpen, onClose, children}) => {
   
     useEffect(() => {
     const handleEscKeyPress = event => {
@@ -33,8 +32,7 @@ const Modal = ({ isOpen, onClose, children, catalogData }) => {
         <ModalOverlay onClick={handleOverlayClick}>
           <ModalContent>
             <ModalCloseButton onClick={onClose}>X</ModalCloseButton>
-            <ModalCard catalogData={ catalogData} />
-            {children}
+          {children}          
           </ModalContent>
         </ModalOverlay>,
           document.body
@@ -53,6 +51,7 @@ Modal.propTypes = {
     rentalPrice: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     rentalCompany: PropTypes.string.isRequired,
+     children: PropTypes.node,
   }).isRequired,
 };
 

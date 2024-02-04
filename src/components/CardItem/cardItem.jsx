@@ -11,15 +11,18 @@ import {
   ImageContainer,
   Item,
   Span,
- 
 } from './cardItem.styled';
 
-import Modal from '../../Modal/modal';
+import Modal from '../Modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSelectorFavorites } from '../../../redux/favorites/selector';
-import { addToFavorites, removeFavorites } from '../../../redux/favorites/favoritesSlise';
-import Icons from '../../../images/symbol-defs.svg';
-import rentalCar from '../../../images/rentalCar.png'
+import { getSelectorFavorites } from '../../redux/favorites/selector';
+import {
+  addToFavorites,
+  removeFavorites,
+} from '../../redux/favorites/favoritesSlise';
+import Icons from '../../images/symbol-defs.svg';
+import rentalCar from '../../images/rentalCar.png';
+import ModalCard from 'components/ModalCard/modalCard';
 
 function CardItem({ catalogData }) {
   const {
@@ -38,7 +41,7 @@ function CardItem({ catalogData }) {
 
   const [isOpen, setModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setModalOpen(true);
@@ -48,24 +51,21 @@ function CardItem({ catalogData }) {
     setModalOpen(false);
   };
 
+  const storedFavorites = useSelector(getSelectorFavorites);
 
-   const storedFavorites = useSelector(getSelectorFavorites);
+  useEffect(() => {
+    setIsFavorite(storedFavorites.some(favorite => favorite.id === id));
+  }, [id, storedFavorites]);
 
-   useEffect(() => {
-     setIsFavorite(storedFavorites.some(favorite => favorite.id === id));
-   }, [id, storedFavorites]);
-
-   const handleFavoriteToggle = () => {
-
-     if (storedFavorites.some(favorite => favorite.id === id)) {
-       dispatch(removeFavorites(id));
-       setIsFavorite(false);
-     } else {
-
-       dispatch(addToFavorites(catalogData));
-       setIsFavorite(true);
-     }
-   };
+  const handleFavoriteToggle = () => {
+    if (storedFavorites.some(favorite => favorite.id === id)) {
+      dispatch(removeFavorites(id));
+      setIsFavorite(false);
+    } else {
+      dispatch(addToFavorites(catalogData));
+      setIsFavorite(true);
+    }
+  };
 
   return (
     <>
@@ -107,7 +107,9 @@ function CardItem({ catalogData }) {
           onClose={closeModal}
           catalogData={catalogData}
           id={id}
-        ></Modal>
+        >
+          <ModalCard catalogData={catalogData} />
+        </Modal>
       </Item>
     </>
   );
@@ -125,8 +127,9 @@ CardItem.propTypes = {
     functionalities: PropTypes.array.isRequired,
     rentalPrice: PropTypes.string.isRequired,
     rentalCompany: PropTypes.string.isRequired,
-    model: PropTypes.string.isRequired, 
+    model: PropTypes.string.isRequired,
     mileage: PropTypes.number.isRequired,
+    children: PropTypes.node,
   }).isRequired,
 };
 

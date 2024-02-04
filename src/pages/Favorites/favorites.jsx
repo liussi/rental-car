@@ -1,55 +1,42 @@
-import Filter from 'components/Catatlog/Filter/filter';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilteredData } from '../../redux/filter/filterSlice';
-import { removeFavorites } from '../../redux/favorites/favoritesSlise';
-// import { selectFilteredData } from 'redux/catalog/selector';
+import CardItem from 'components/CardItem/cardItem';
 import { getSelectorFavorites } from '../../redux/favorites/selector';
+import { Container, FilteredContainer, ListItems } from './favorites.styled';
+import Filter from 'components/Filter/filter';
+import NotResult from 'components/NotResult/notResult';
 
 const FavoriteList = () => {
   const favorites = useSelector(getSelectorFavorites);
-  // const filteredData = useSelector(selectFilteredData);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-   const handleFilterChange = filteredData => {
+  const handleFilterChange = filteredData => {
     dispatch(updateFilteredData(filteredData));
   };
- const handleRemoveFromFavorites = id => {
-   dispatch(removeFavorites(id));
- };
-  // useEffect(() => {
-  //   const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  //   setFavorites(storedFavorites);
-  // }, []);
+ 
+return (
+  <Container>
+    <FilteredContainer>
+      <Filter onFilterChange={handleFilterChange} data={favorites} />
+    </FilteredContainer>
 
-  // const handleRemoveFromFavorites = id => {
-  //   // Оновлення стану, вилучаючи обраного улюбленого
-  //   const updatedFavorites = favorites.filter(favorite => favorite.id !== id);
-  //   setFavorites(updatedFavorites);
+    {favorites.length > 0 ? (
+      <ListItems>
+        {favorites.map(catalogData => (
+          <div key={catalogData.id}>
+            <CardItem catalogData={catalogData} />
+          </div>
+        ))}
+      </ListItems>
+    ) : (
+      <NotResult />
+    )}
 
-  //   // Збереження оновленого списку улюблених в локальному сховищі
-  //   localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-  // };
+  </Container>
+);
 
-  return (
-    <>
-      <Filter onFilterChange={handleFilterChange} />
-      <div>
-        <h2>Favorite List</h2>
-        <ul>
-          {favorites.map(favorite => (
-            <li key={favorite.id}>
-              Елемент з ідентифікатором {favorite.id}, Опис:{' '}
-              {favorite.description}{' '}
-              <button onClick={() => handleRemoveFromFavorites(favorite.id)}>
-                Видалити з улюблених
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
-  );
+
 };
 
 export default FavoriteList;

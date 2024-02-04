@@ -153,12 +153,13 @@ ModalCard.propTypes = {
     img: PropTypes.string.isRequired,
     rentalPrice: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
-    mileage: PropTypes.string.isRequired,
+    mileage: PropTypes.number.isRequired,
     accessories: PropTypes.array.isRequired,
     description: PropTypes.string.isRequired,
     fuelConsumption: PropTypes.string.isRequired,
     engineSize: PropTypes.string.isRequired,
-    rentalConditions: PropTypes.string.isRequired, // Додайте цей рядок
+    rentalConditions: PropTypes.string.isRequired,
+    children: PropTypes.node, 
   }).isRequired,
 };
 export default ModalCard;

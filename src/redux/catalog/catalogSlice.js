@@ -15,16 +15,20 @@ export const catalogSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllCatalog.fulfilled, (state, action) => {
-        state.catalog = action.payload;
-        state.status = 'succeeded';
+        if (state.page === 1) {
+
+          state.catalog = action.payload;
+        } else {
+
+          state.catalog = [...state.catalog, ...action.payload];
+        }
       })
       .addCase(getCatalogList.fulfilled, (state, action) => {
         state.list = action.payload;
-        state.status = 'succeeded';
+
       })
-      
   },
 });
 
-export const { updatePage } = catalogSlice.actions;
+export const { updatePage, setCatalogList } = catalogSlice.actions;
 export const reducerCatalog = catalogSlice.reducer;
