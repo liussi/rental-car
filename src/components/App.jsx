@@ -21,7 +21,7 @@ const App = () => {
           }
         />
         <Route
-          path="/catalog"
+          path="catalog"
           element={
             <Suspense fallback={<Loader />}>
               <Catalog />
@@ -29,7 +29,7 @@ const App = () => {
           }
         />
         <Route
-          path="/favorites"
+          path="favorites"
           element={
             <Suspense fallback={<Loader />}>
               <Favorites />
