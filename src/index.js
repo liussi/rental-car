@@ -10,8 +10,8 @@ import GlobalStyle from 'styles/globalStyles';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-<BrowserRouter >
-               <GlobalStyle />
+<BrowserRouter basename="/cars-for-rent">
+  <GlobalStyle />
       <App />
       </BrowserRouter>
        </Provider>
