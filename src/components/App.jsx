@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import Loader from './Loader/loader';
 import { Header } from './Header/header';
@@ -21,7 +21,7 @@ const App = () => {
           }
         />
         <Route
-          path="catalog"
+          path="/catalog"
           element={
             <Suspense fallback={<Loader />}>
               <Catalog />
@@ -29,14 +29,14 @@ const App = () => {
           }
         />
         <Route
-          path="favorites"
+          path="/favorites"
           element={
             <Suspense fallback={<Loader />}>
               <Favorites />
             </Suspense>
           }
         />
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>
   );

@@ -14,12 +14,12 @@ export const Header = () => {
               </NavLinkStyled>
             </WrapperNavLinkStyled>
             <WrapperNavLinkStyled>
-              <NavLinkStyled aria-label="Catalog" to="catalog">
+              <NavLinkStyled aria-label="Catalog" to="/catalog">
                 Catalog
               </NavLinkStyled>
             </WrapperNavLinkStyled>
             <WrapperNavLinkStyled>
-              <NavLinkStyled aria-label="Favorites" to="favorites">
+              <NavLinkStyled aria-label="Favorites" to="/favorites">
                 Favorites
               </NavLinkStyled>
             </WrapperNavLinkStyled>
