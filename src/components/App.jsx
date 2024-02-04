@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import Loader from './Loader/loader';
-import { Layout } from './Header/header';
+import { Header } from './Header/header';
 
 const Home = lazy(() => import('../pages/Home/home'));
 const Catalog = lazy(() => import('../pages/Catalog/catalog'));
@@ -11,7 +11,7 @@ const Favorites = lazy(() => import('../pages/Favorites/favorites'));
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Header />}>
         <Route
           index
           element={
