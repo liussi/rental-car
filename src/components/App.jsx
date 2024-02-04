@@ -1,13 +1,12 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
-import Home from '../pages/Home/home';
-import Catalog from '../pages/Catalog/catalog';
-import Favorites from '../pages/Favorites/favorites';
 import Loader from './Loader/loader';
 import { Layout } from './Header/header';
 
-
+const Home = lazy(() => import('../pages/Home/home'));
+const Catalog = lazy(() => import('../pages/Catalog/catalog'));
+const Favorites = lazy(() => import('../pages/Favorites/favorites'));
 
 const App = () => {
   return (
@@ -22,7 +21,7 @@ const App = () => {
           }
         />
         <Route
-          path="/catalog" 
+          path="/catalog"
           element={
             <Suspense fallback={<Loader />}>
               <Catalog />
@@ -37,6 +36,7 @@ const App = () => {
             </Suspense>
           }
         />
+        <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>
   );
