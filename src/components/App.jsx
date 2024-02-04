@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Suspense } from 'react';
 import Loader from './Loader/loader';
 import { Header } from './Header/header';
@@ -36,7 +36,7 @@ const App = () => {
             </Suspense>
           }
         />
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Route>
     </Routes>
   );
