@@ -16,15 +16,12 @@ import {
   UnitLeft,
   UnitRight,
 } from './filter.styled';
-// import { setCatalogList } from '../../redux/catalog/catalogSlice';
-// import { getSelectorFavorites } from '../../redux/favorites/selector';
 
 
 function Filter({ onFilterChange }) {
   const dispatch = useDispatch();
   const catalogData = useSelector(selectCatalog);
   const brandCarList = useSelector(selectList);
-  // const favoritesData = useSelector(getSelectorFavorites);
   
   const [selectedMake, setSelectedMake] = useState('');
   const [minRentalPrice, setMinRentalPrice] = useState('');
@@ -79,7 +76,6 @@ function Filter({ onFilterChange }) {
 
     onFilterChange(sortedData);
     console.log(sortedData);
-    // dispatch(setCatalogList(sortedData));
     dispatch(updateFilteredData(sortedData));
   };
 

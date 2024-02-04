@@ -10,7 +10,6 @@ import {
 import { getAllCatalog } from '../../redux/catalog/operations';
 import { updatePage } from '../../redux/catalog/catalogSlice';
 import Loader from 'components/Loader/loader';
-// import { selectPageFilter } from '../../redux/catalog/selector';
 
 function Card({ catalogData }) {
   const dispatch = useDispatch();

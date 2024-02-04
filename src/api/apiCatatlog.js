@@ -5,11 +5,6 @@ axios.defaults.baseURL = 'https://65bb688552189914b5bc06ec.mockapi.io/api';
 const headers = {
   'Content-Type': 'application/json',
 };
-// export const getCatalog = async () => {
-//     const {data} = await axios.get('catalog', { headers });
-//     return data;
-// };
-
 export const getCatalog = async ({ page, limit }) => {
     const params = {
       page,
@@ -22,7 +17,7 @@ export const getCatalog = async ({ page, limit }) => {
 
 export const getList = async () => {
   const { data } = await axios.get('catalog-list', { headers });
-     console.log(data);
+  
     return data;
 
 };

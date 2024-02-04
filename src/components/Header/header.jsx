@@ -1,4 +1,4 @@
-// Header.jsx
+
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, NavContainer, NavLinkStyled, NavStyled, NavWrapper, WrapperNavLinkStyled } from './header.styled';

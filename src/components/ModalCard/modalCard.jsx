@@ -39,8 +39,7 @@ const ModalCard = ({ catalogData }) => {
     engineSize,
     rentalConditions,
   } = catalogData;
-//   const addressCars = advert.address.split(' ');
-//   const lastWords = addressCars.slice(-2).join(' ').replace(',', ' | ');
+
 
   const formatConditionAndNumber = text => {
     const fractionalNumber = number => {
