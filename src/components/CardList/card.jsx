@@ -38,7 +38,7 @@ function Card({ catalogData }) {
         )}
       </ListItems>
 
-      {page < totalPages && (
+      {page < totalPages && catalogData.length > limit && (
         <LoadMoreButton onClick={handleNextPage}>Load more</LoadMoreButton>
       )}
     </Container>
