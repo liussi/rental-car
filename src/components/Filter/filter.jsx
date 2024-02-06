@@ -73,7 +73,7 @@ function Filter() {
 
       const rentalPriceCondition =
         minRentalPrice === '' ||
-        +car.rentalPrice.replace('$', '') >= +minRentalPrice;
+        +car.rentalPrice.replace('$', '') <= +minRentalPrice;
     
 
       const mileageCondition =
