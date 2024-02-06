@@ -53,7 +53,7 @@ Card.propTypes = {
       make: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
+      img: PropTypes.string,
       description: PropTypes.string.isRequired,
       fuelConsumption: PropTypes.string.isRequired,
       engineSize: PropTypes.string.isRequired,

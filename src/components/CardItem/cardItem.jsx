@@ -71,11 +71,11 @@ function CardItem({ catalogData }) {
     <>
       <Item>
         <ImageContainer>
-          {!img ? (
-            <Img src={rentalCar} width={274} />
-          ) : (
-            <Img src={img} alt={`${make}`} width={274} />
-          )}
+          <Img
+          src={img || rentalCar} 
+          alt={`${make}`}
+          width={274}
+        />
           {isFavorite ? (
             <ButtonHeart type="button" onClick={handleFavoriteToggle}>
               <svg width={18} height={18}>
@@ -121,7 +121,7 @@ CardItem.propTypes = {
     year: PropTypes.number.isRequired,
     make: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    img: PropTypes.string,
     fuelConsumption: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     functionalities: PropTypes.array.isRequired,

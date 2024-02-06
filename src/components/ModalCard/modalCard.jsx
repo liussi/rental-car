@@ -61,85 +61,86 @@ const ModalCard = ({ catalogData }) => {
     return text;
   };
 
-  return (
-    <div>
-      <ImgContainer>
-        {!img ? (
-          <Img src={rentalCar} width={461} />
-        ) : (
-          <Img src={img} alt={`${make}`} width={461} />
-        )}
-       
-      </ImgContainer>
-      <InfoContainer>
-        <Title>
-          {make} <Span> {model}</Span>, {year}
-        </Title>
-        <DescrContainer>
-          <Descr>
-            <p>
-              {address} | Id: {id} | Year: {year} | Type: {type}
-            </p>
-            <p>
-              Fuel Consumption: {fuelConsumption} | Engine Size: {engineSize}
-            </p>
-          </Descr>
-        </DescrContainer>
-        <AdvDescr>{description}</AdvDescr>
-        <FuncDescr>
-          <DescrTitle>Accessories and functionalities:</DescrTitle>
-          <DescrFunc>
-            <p>
-                {accessories
-    .filter(accessory => typeof accessory === 'string')
-    .map(accessory => {
-      const words = accessory.split(' ');
-      const firstThreeWords = words.slice(0, 3).join(' ');
-      return firstThreeWords;
-    })
-    .join(' | ')}
-            </p>
-            <p>
-              {functionalities
-    .filter(functionality => typeof functionality === 'string')
-    .map(functionality => {
-      const words = functionality.split(' ');
-      const firstThreeWords = words.slice(0, 3).join(' ');
-      return firstThreeWords;
-    })
-    .join(' | ')}
-            </p>
-          </DescrFunc>
-        </FuncDescr>
-        <ConditionContainer>
-          <DescrTitle>Rental Conditions:</DescrTitle>
-          <ConditionDescr>
-          {rentalConditions && rentalConditions.split('\n').map((condition, index) => (
-  <ConditionUnit key={index}>
-    {formatConditionAndNumber(condition)}
-  </ConditionUnit>
-))}
-            <ConditionUnit>
-              Mileage:{' '}
-              <SpanUnit>
-                {typeof mileage === 'number'
-                  ? mileage.toLocaleString('en-US')
-                  : mileage}
-              </SpanUnit>
-            </ConditionUnit>
+return (
+  <div>
+    <ImgContainer>
+      {!img ? (
+        <Img src={rentalCar} width={461} />
+      ) : (
+        <Img src={img} alt={`${make}`} width={461} />
+      )}
+    </ImgContainer>
+    <InfoContainer>
+      <Title>
+        {make} <Span> {model}</Span>, {year}
+      </Title>
+      <DescrContainer>
+        <Descr>
+          <span>
+            {address} | Id: {id} | Year: {year} | Type: {type}
+          </span>
+          <span>
+            Fuel Consumption: {fuelConsumption} | Engine Size: {engineSize}
+          </span>
+        </Descr>
+      </DescrContainer>
+      <AdvDescr>{description}</AdvDescr>
+      <FuncDescr>
+        <DescrTitle>Accessories and functionalities:</DescrTitle>
+        <DescrFunc>
+          <span>
+            {accessories
+              .filter(accessory => typeof accessory === 'string')
+              .map(accessory => {
+                const words = accessory.split(' ');
+                const firstThreeWords = words.slice(0, 3).join(' ');
+                return firstThreeWords;
+              })
+              .join(' | ')}
+          </span>
+          <span>
+            {functionalities
+              .filter(functionality => typeof functionality === 'string')
+              .map(functionality => {
+                const words = functionality.split(' ');
+                const firstThreeWords = words.slice(0, 3).join(' ');
+                return firstThreeWords;
+              })
+              .join(' | ')}
+          </span>
+        </DescrFunc>
+      </FuncDescr>
+      <ConditionContainer>
+        <DescrTitle>Rental Conditions:</DescrTitle>
+        <ConditionDescr>
+          {rentalConditions &&
+            rentalConditions.split('\n').map((condition, index) => (
+              <ConditionUnit key={index}>
+                {formatConditionAndNumber(condition)}
+              </ConditionUnit>
+            ))}
+          <ConditionUnit>
+            Mileage:{' '}
+            <SpanUnit>
+              {typeof mileage === 'number'
+                ? mileage.toLocaleString('en-US')
+                : mileage}
+            </SpanUnit>
+          </ConditionUnit>
 
-            <ConditionUnit>
-              Price: <SpanUnit>{rentalPrice.replace('$', '') + '$'}</SpanUnit>
-            </ConditionUnit>
-          </ConditionDescr>
-        </ConditionContainer>
+          <ConditionUnit>
+            Price: <SpanUnit>{rentalPrice.replace('$', '') + '$'}</SpanUnit>
+          </ConditionUnit>
+        </ConditionDescr>
+      </ConditionContainer>
 
-        <Button>
-          <ButtonLink href="tel:+380730000000">Rental Car</ButtonLink>
-        </Button>
-      </InfoContainer>
-    </div>
-  );
+      <Button>
+        <ButtonLink href="tel:+380730000000">Rental Car</ButtonLink>
+      </Button>
+    </InfoContainer>
+  </div>
+);
+
 };
 
 ModalCard.propTypes = {
@@ -151,7 +152,7 @@ ModalCard.propTypes = {
     type: PropTypes.string.isRequired,
     functionalities: PropTypes.array.isRequired,
     address: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    img: PropTypes.string,
     rentalPrice: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
     mileage: PropTypes.number.isRequired,
