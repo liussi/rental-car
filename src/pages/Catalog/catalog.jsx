@@ -13,7 +13,7 @@ function Catalog() {
   const dispatch = useDispatch();
   const catalogData = useSelector(selectCatalog);
   const filteredData = useSelector(selectFilteredData);
-
+ console.log(catalogData)
   const handleFilterChange = filteredData => {
     dispatch(updateFilteredData(filteredData));
   };
@@ -23,14 +23,13 @@ function Catalog() {
     dispatch(getAllCatalog());
   }, [dispatch]);
 
+    const cardsData = filteredData !== null && filteredData.length > 0 ? filteredData : catalogData;
+
+
   return (
     <CatalogContainer>
-      <Filter onFilterChange={handleFilterChange}  />
-      {filteredData !== null && filteredData.length > 0 ? (
-        <Card catalogData={filteredData} />
-      ) : (
-        <Card catalogData={catalogData} />
-      )}
+      <Filter onFilterChange={handleFilterChange} />
+      <Card catalogData={cardsData} />
     </CatalogContainer>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilteredData } from '../../redux/filter/filterSlice';
 import {  selectCatalog, selectList } from '../../redux/catalog/selector';
@@ -27,11 +27,18 @@ function Filter({ onFilterChange }) {
   const [minRentalPrice, setMinRentalPrice] = useState('');
   const [minMileage, setMinMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const rentalPriceOptions = [];
   for (let price = 10; price <= 500; price += 10) {
     rentalPriceOptions.push(price);
   }
+
+ useEffect(() => {
+    if (catalogData.length > 0) { // Перевіряємо, чи дані завантажені
+      setDataLoaded(true); // Встановлюємо флаг, що дані завантажені
+    }
+  }, [catalogData]);
 
   const handleCategoryChange = selectedOption => {
     setSelectedMake(selectedOption ? selectedOption.value : null);
@@ -56,6 +63,9 @@ function Filter({ onFilterChange }) {
   const handleFilter = event => {
     event.preventDefault();
 
+     if (!dataLoaded) { // Перевіряємо, чи дані завантажені перед застосуванням фільтру
+      return;
+    }
     const filteredData = catalogData.filter(car => {
       const makeCondition = selectedMake === 'all' || car.make === selectedMake;
 
@@ -75,7 +85,7 @@ function Filter({ onFilterChange }) {
     });
 
     onFilterChange(sortedData);
-    console.log(sortedData);
+   
     dispatch(updateFilteredData(sortedData));
   };
 
@@ -225,6 +235,6 @@ function Filter({ onFilterChange }) {
 }
 Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+ 
 };
 export default Filter;

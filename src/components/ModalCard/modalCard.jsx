@@ -90,33 +90,35 @@ const ModalCard = ({ catalogData }) => {
           <DescrTitle>Accessories and functionalities:</DescrTitle>
           <DescrFunc>
             <p>
-              {accessories
-                .map(accessory => {
-                  const words = accessory.split(' ');
-                  const firstThreeWords = words.slice(0, 3).join(' ');
-                  return firstThreeWords;
-                })
-                .join(' | ')}
+                {accessories
+    .filter(accessory => typeof accessory === 'string')
+    .map(accessory => {
+      const words = accessory.split(' ');
+      const firstThreeWords = words.slice(0, 3).join(' ');
+      return firstThreeWords;
+    })
+    .join(' | ')}
             </p>
             <p>
               {functionalities
-                .map(functionality => {
-                  const words = functionality.split(' ');
-                  const firstThreeWords = words.slice(0, 3).join(' ');
-                  return firstThreeWords;
-                })
-                .join(' | ')}
+    .filter(functionality => typeof functionality === 'string')
+    .map(functionality => {
+      const words = functionality.split(' ');
+      const firstThreeWords = words.slice(0, 3).join(' ');
+      return firstThreeWords;
+    })
+    .join(' | ')}
             </p>
           </DescrFunc>
         </FuncDescr>
         <ConditionContainer>
           <DescrTitle>Rental Conditions:</DescrTitle>
           <ConditionDescr>
-            {rentalConditions.split('\n').map((condition, index) => (
-              <ConditionUnit key={index}>
-                {formatConditionAndNumber(condition)}
-              </ConditionUnit>
-            ))}
+          {rentalConditions && rentalConditions.split('\n').map((condition, index) => (
+  <ConditionUnit key={index}>
+    {formatConditionAndNumber(condition)}
+  </ConditionUnit>
+))}
             <ConditionUnit>
               Mileage:{' '}
               <SpanUnit>
