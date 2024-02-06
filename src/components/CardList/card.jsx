@@ -16,7 +16,7 @@ function Card({ catalogData }) {
 
   const page = useSelector(selectPageFilter);
   const limit = useSelector(selectLimitFilter);
-
+  const totalPages = 3;
   useEffect(() => {
     dispatch(getAllCatalog({ page, limit }));
   }, [dispatch, page]);
@@ -38,7 +38,7 @@ function Card({ catalogData }) {
         )}
       </ListItems>
 
-      {catalogData.length > 0 && (
+      {page < totalPages && (
         <LoadMoreButton onClick={handleNextPage}>Load more</LoadMoreButton>
       )}
     </Container>
