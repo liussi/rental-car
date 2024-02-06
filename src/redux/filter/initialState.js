@@ -1,3 +1,3 @@
 export const initialState = { 
-   filteredData: null,
+   filteredData: [],
 };

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilteredData } from '../../redux/filter/filterSlice';
 import {  selectCatalog, selectList } from '../../redux/catalog/selector';
-import PropTypes from 'prop-types';
 import Select from 'react-select';
 import {
   Button,
@@ -18,7 +17,7 @@ import {
 } from './filter.styled';
 
 
-function Filter({ onFilterChange }) {
+function Filter() {
   const dispatch = useDispatch();
   const catalogData = useSelector(selectCatalog);
   const brandCarList = useSelector(selectList);
@@ -29,14 +28,16 @@ function Filter({ onFilterChange }) {
   const [maxMileage, setMaxMileage] = useState('');
   const [dataLoaded, setDataLoaded] = useState(false);
 
+
+
   const rentalPriceOptions = [];
   for (let price = 10; price <= 500; price += 10) {
     rentalPriceOptions.push(price);
   }
 
  useEffect(() => {
-    if (catalogData.length > 0) { // Перевіряємо, чи дані завантажені
-      setDataLoaded(true); // Встановлюємо флаг, що дані завантажені
+    if (catalogData.length > 0) { 
+      setDataLoaded(true);
     }
   }, [catalogData]);
 
@@ -63,29 +64,31 @@ function Filter({ onFilterChange }) {
   const handleFilter = event => {
     event.preventDefault();
 
-     if (!dataLoaded) { // Перевіряємо, чи дані завантажені перед застосуванням фільтру
+     if (!dataLoaded) { 
       return;
     }
     const filteredData = catalogData.filter(car => {
-      const makeCondition = selectedMake === 'all' || car.make === selectedMake;
+      const makeCondition = selectedMake === '' || car.make === selectedMake;
+    
 
       const rentalPriceCondition =
         minRentalPrice === '' ||
         +car.rentalPrice.replace('$', '') >= +minRentalPrice;
+    
 
       const mileageCondition =
         (minMileage === '' || parseInt(car.mileage) >= parseInt(minMileage)) &&
         (maxMileage === '' || parseInt(car.mileage) <= parseInt(maxMileage));
+  
 
       return makeCondition && rentalPriceCondition && mileageCondition;
     });
 
+   
     const sortedData = filteredData.sort((a, b) => {
       return +a.rentalPrice.replace('$', '') - +b.rentalPrice.replace('$', '');
     });
 
-    onFilterChange(sortedData);
-   
     dispatch(updateFilteredData(sortedData));
   };
 
@@ -233,8 +236,5 @@ function Filter({ onFilterChange }) {
     </Form>
   );
 }
-Filter.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
- 
-};
+
 export default Filter;
