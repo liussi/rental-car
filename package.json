@@ -1,8 +1,8 @@
 {
-  "name": "cars-for-rent",
+  "name": "rental-car",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://liussi.github.io/cars-for-rent/",
+  "homepage": "https://liussi.github.io/rental-car/",
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.23.3",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.23.4",
