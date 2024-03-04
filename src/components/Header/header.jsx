@@ -27,6 +27,7 @@ export const Header = () => {
           </NavWrapper>
         </NavStyled>
       </Container>
+   
         <Outlet />
     </NavContainer>
   );
