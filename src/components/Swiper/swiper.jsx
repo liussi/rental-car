@@ -4,11 +4,9 @@ import 'swiper/css';
 import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 import { EffectCube, Pagination, Autoplay } from 'swiper/modules';
-import PropTypes from 'prop-types';
 import CarWhite from '../../images/white.jpg'
 import CarGrean from '../../images/grean.jpg';
 import CarBlack from '../../images/black.jpg';
-
 import './styles.css';
 
 export default function SwiperList() {
@@ -47,6 +45,3 @@ export default function SwiperList() {
     );
 }
 
-SwiperList.propTypes = {
-  catalogData: PropTypes.array.isRequired,
-};

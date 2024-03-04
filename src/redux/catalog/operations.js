@@ -7,7 +7,6 @@ export const getAllCatalog = createAsyncThunk('catalog/getCatalog', async ({ pag
    const data = await getCatalog({ page, limit });
     return data;
   } catch (error) {
-    console.error('Помилка отримання каталогу:', error);
     return rejectWithValue(error.message);
   }
 });

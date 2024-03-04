@@ -1,9 +1,13 @@
-// App.jsx
+
 import React, { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import Loader from './Loader/loader';
 import { Header } from './Header/header';
+import { PrivateRoute } from './PrivateRouter';
+import { Register } from 'pages/Register/register';
+import { Login } from 'pages/Login/login';
+import { PublicRouter } from './PublicRouter';
 
 const Home = lazy(() => import('../pages/Home/home'));
 const Catalog = lazy(() => import('../pages/Catalog/catalog'));
@@ -21,11 +25,23 @@ const App = () => {
             </Suspense>
           }
         />
+           <Route
+            path="register"
+            element={
+              <PublicRouter component={Register} redirectTo="/catalog" />
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <PublicRouter component={Login} redirectTo="/catalog" />
+            }
+          />
         <Route
           path="/catalog"
           element={
             <Suspense fallback={<Loader />}>
-              <Catalog />
+              <PrivateRoute component={Catalog} redirectTo="/login" />
             </Suspense>
           }
         />
@@ -33,7 +49,7 @@ const App = () => {
           path="/favorites"
           element={
             <Suspense fallback={<Loader />}>
-              <Favorites />
+              <PrivateRoute component={Favorites} redirectTo="/login" />
             </Suspense>
           }
         />
